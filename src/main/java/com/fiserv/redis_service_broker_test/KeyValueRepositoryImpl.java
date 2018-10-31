@@ -1,4 +1,4 @@
-package com.myenterprise.redis_service_broker_test;
+package com.fiserv.redis_service_broker_test;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +10,8 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Repository;
 
 /**
- * @author Michael Hug
+ * @author michael.hug@fiserv.com
+ * Fiserv Internal Software
  */
 
 @Repository

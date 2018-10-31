@@ -1,4 +1,4 @@
-package com.myenterprise.redis_service_broker_test;
+package com.fiserv.redis_service_broker_test;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @author Micahel Hug
+ * @author michael.hug@fiserv.com
+ * Fiserv Internal Software
  */
 
 @RestController("/api/")
@@ -36,6 +37,7 @@ public class WebController {
 	public String VCAP_SERVICES() {
             return System.getenv("VCAP_SERVICES").replaceAll("\"password\":\\s\".+?\"", "\"password\": \"<REDACTED>\"");
 	}
+
         //never tested this
         @GetMapping("/api/info/{var}")
 	public Map<String, String> environmentVariable(@PathVariable String var) {
@@ -51,9 +53,14 @@ public class WebController {
         
         @PutMapping("/api/set/random/{count}")
 	public void setRandom(@PathVariable int count) {
-            for (int i=0 ; i < count; i++) {
-                keyValueRepository.set(UUID.randomUUID().toString() , UUID.randomUUID().toString());
-            }
+	    for (int i=0 ; i < count; i++) {
+		UUID uuid = UUID.randomUUID();
+		if( uuid.hashCode() % 12 == 0) { // because twelve is that largest one syllable number
+                	keyValueRepository.set(uuid.toString() , "MichaelIsMetal");
+		} else {
+                	keyValueRepository.set(uuid.toString() , UUID.randomUUID().toString());
+		}
+	    }
 	}
         
 	@DeleteMapping("/api/del/{key}")
@@ -65,4 +72,15 @@ public class WebController {
 	public void flushAll() {
             keyValueRepository.flushAll();
 	}	
+
+	@GetMapping("/api/setgethealthcheck")
+	public void sutgethealthcheck() throws Exception {
+	    String key = UUID.randomUUID().toString();
+	    String value = UUID.randomUUID().toString();
+	    set(key, value);
+	    Map<String, String> ret = get(key);
+	    if (!ret.get(key).equals(value)) {
+		throw new Exception("Redis gave me back a different value than i put into it");
+	    }
+	}
 }

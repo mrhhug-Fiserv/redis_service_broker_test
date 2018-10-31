@@ -282,3 +282,7 @@ td, th {
 tr:nth-child(even) {
     background-color: #dddddd;
 }
+
+#response-body-rest {
+    text-align:left
+}

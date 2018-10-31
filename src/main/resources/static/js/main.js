@@ -2,9 +2,9 @@ $('#get-btn').click(function() {
     var key=$('#key').val();
     var url="api/get/" + key;
     console.log("Calling: " + url);
-    $('.response-body').html('Calling REST endpoint');
+    $('#response-body-redis').html('Calling REST endpoint');
     if ( key == "" ) {
-        $('.response-body').html('Please enter a key.');
+        $('#response-body-redis').html('Please enter a key.');
     } else {
         $.ajax({
             type: 'GET',
@@ -15,10 +15,10 @@ $('#get-btn').click(function() {
                     ret += "<tr><td>"+i+"</td><td>"+result[i]+"</td></tr>";
                 }
                 ret += "</table>"
-                $('.response-body').html(ret);
+                $('#response-body-redis').html(ret);
             },
             error: function(xhr, status, error) {
-                $('.response-body').html(
+                $('#response-body-redis').html(
                     "status: " + status + "<br>" +
                     "error: " + error + "<br>" +
                     "xhr: " + "<pre>" + syntaxHighlight(xhr) + "</pre>"
@@ -32,7 +32,7 @@ $('#get-btn').click(function() {
 $('#getAllKeyValues-btn').click(function() {
     var url="api/get/*";
     console.log("Calling: " + url);
-    $('.response-body').html('Calling REST endpoint');
+    $('#response-body-redis').html('Calling REST endpoint');
     $.ajax({
         type: 'GET',
         url: url,
@@ -42,10 +42,10 @@ $('#getAllKeyValues-btn').click(function() {
                 ret += "<tr><td>"+i+"</td><td>"+result[i]+"</td></tr>";
             }
             ret += "</table>"
-            $('.response-body').html(ret);
+            $('#response-body-redis').html(ret);
         },
         error: function(xhr, status, error) {
-            $('.response-body').html(
+            $('#response-body-redis').html(
                 "status: " + status + "<br>" +
                 "error: " + error + "<br>" +
                 "xhr: " + "<pre>" + syntaxHighlight(xhr) + "</pre>"
@@ -58,15 +58,15 @@ $('#getAllKeyValues-btn').click(function() {
 $('#VCAP_SERVICES-btn').click(function() {
     var url="api/info";
     console.log("Calling: " + url);
-    $('.response-body').html('Calling REST endpoint');
+    $('#response-body-redis').html('Calling REST endpoint');
     $.ajax({
         type: 'GET',
         url: url,
         success: function(result){
-            $('.response-body').html('<div class="prettyjson"><pre>' + syntaxHighlight(result) + "</pre>");
+            $('#response-body-redis').html('<div class="prettyjson"><pre>' + syntaxHighlight(result) + "</pre>");
         },
         error: function(xhr, status, error) {
-            $('.response-body').html(
+            $('#response-body-redis').html(
                 "status: " + status + "<br>" +
                 "error: " + error + "<br>" +
                 "xhr: " + "<pre>" + syntaxHighlight(xhr) + "</pre>"
@@ -81,20 +81,20 @@ $('#set-btn').click(function() {
     var value=$('#value').val();
     var url="api/set/" + key +"/" + value;
     console.log("Calling: " + url);
-    $('.response-body').html('Calling REST endpoint');
+    $('#response-body-redis').html('Calling REST endpoint');
     if ( key == "" ) {
-        $('.response-body').html('Please enter a key.');
+        $('#response-body-redis').html('Please enter a key.');
     } else if ( value == "" ) {
-        $('.response-body').html('Please enter a value.');
+        $('#response-body-redis').html('Please enter a value.');
     } else {
         $.ajax({
             type: 'PUT',
             url: url,
             success: function(){
-                $('.response-body').html("ok");
+                $('#response-body-redis').html("ok");
             },
             error: function(xhr, status, error) {
-                $('.response-body').html(
+                $('#response-body-redis').html(
                     "status: " + status + "<br>" +
                     "error: " + error + "<br>" +
                     "xhr: " + "<pre>" + syntaxHighlight(xhr) + "</pre>"
@@ -107,15 +107,15 @@ $('#set-btn').click(function() {
 $('#setRandom-btn').click(function() {
     var count = 10;
     var url="api/set/random/" + count;
-    $('.response-body').html('Calling REST endpoint');
+    $('#response-body-redis').html('Calling REST endpoint');
     $.ajax({
         type: 'PUT',
         url: url,
         success: function(){
-            $('.response-body').html("ok");
+            $('#response-body-redis').html("ok");
         },
         error: function(xhr, status, error) {
-        $('.response-body').html(
+        $('#response-body-redis').html(
             "status: " + status + "<br>" +
             "error: " + error + "<br>" +
             "xhr: " + "<pre>" + syntaxHighlight(xhr) + "</pre>"
@@ -128,18 +128,18 @@ $('#del-btn').click(function() {
     var key=$('#key').val();
     var url="api/del/" + key;
     console.log("Calling: " + url);
-    $('.response-body').html('Calling REST endpoint');
+    $('#response-body-redis').html('Calling REST endpoint');
     if ( key == "" ) {
-        $('.response-body').html('Please enter a key.');
+        $('#response-body-redis').html('Please enter a key.');
     } else {
         $.ajax({
             type: 'DELETE',
             url: url,
             success: function(){
-                $('.response-body').html("ok");
+                $('#response-body-redis').html("ok");
             },
             error: function(xhr, status, error) {
-            $('.response-body').html(
+            $('#response-body-redis').html(
                 "status: " + status + "<br>" +
                 "error: " + error + "br" +
                 "xhr: " + "<pre>" + syntaxHighlight(xhr) + "</pre>"
@@ -152,15 +152,15 @@ $('#del-btn').click(function() {
 $('#flushAll-btn').click(function() {
     var url="/api/del/*";
     console.log("Calling: " + url);
-    $('.response-body').html('Calling REST endpoint');
+    $('#response-body-redis').html('Calling REST endpoint');
     $.ajax({
         type: 'DELETE',
         url: url,
         success: function(){
-            $('.response-body').html("ok");
+            $('#response-body-redis').html("ok");
         },
         error: function(xhr, status, error) {
-            $('.response-body').html(
+            $('#response-body-redis').html(
                 "status: " + status + "<br>" +
                 "error: " + error + "<br>" +
                 "xhr: " + "<pre>" + syntaxHighlight(xhr) + "</pre>"
@@ -186,7 +186,19 @@ function syntaxHighlight(json) {
             cls = 'boolean';
         } else if (/null/.test(match)) {
             cls = 'null';
-        }
+        } //else if ('"'.test(match)) {
+          //  cls = syntaxHighlight(match)
+        //}
         return '<span class="' + cls + '">' + match + '</span>';
     });
 }
+var localhost = window.location.hostname
+var restResponse = 'curl -k -X GET "https://' + localhost + '/api/get/&lt;key&gt;"<br>'
+restResponse += 'curl -k -X GET "https://' + localhost + '/api/get/*"<br>'
+restResponse += 'curl -k -X GET "https://' + localhost + '/api/info"<br>'
+restResponse += 'curl -k -X PUT "https://' + localhost + '/api/set/&lt;key&gt;/&lt;value&gt;"<br>'
+restResponse += 'curl -k -X PUT "https://' + localhost + '/api/random/&lt;count&gt;"<br>'
+restResponse += 'curl -k -X DELETE "https://' + localhost + '/api/del/&lt;key&gt;"<br>'
+restResponse += 'curl -k -X DELETE "https://' + localhost + '/api/del/*"<br>'
+restResponse += 'curl -k -X GET "https://' + localhost + '/api/setgethealthcheck"<br>'
+$('#response-body-rest').html(restResponse);

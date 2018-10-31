@@ -1,4 +1,4 @@
-package com.myenterprise.redis_service_broker_test;
+package com.fiserv.redis_service_broker_test;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -8,7 +8,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericToStringSerializer;
 
 /**
- * @author Michael Hug
+ * @author michael.hug@fiserv.com
+ * Fiserv Internal Software
  */
 
 @Configuration

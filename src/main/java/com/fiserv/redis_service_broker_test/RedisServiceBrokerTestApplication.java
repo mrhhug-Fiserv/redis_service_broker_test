@@ -1,10 +1,11 @@
-package com.myenterprise.redis_service_broker_test;
+package com.fiserv.redis_service_broker_test;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * @author Michael Hug
+ * @author michael.hug@fiserv.com
+ * Fiserv Internal Software
  */
 
 @SpringBootApplication

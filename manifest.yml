@@ -1,8 +1,7 @@
 ---
 applications:
 - name: redisservicebrokertest
-  buildpack: java_buildpack_offln_current
   memory: 1G
   disk: 1M
   instances: 1
-  path: target\redis_service_broker_test-0.0.1-SNAPSHOT.jar
+  path: target/redis_service_broker_test-0.0.1-SNAPSHOT.jar
